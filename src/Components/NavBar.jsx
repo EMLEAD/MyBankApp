@@ -7,14 +7,14 @@ const NavBar = () => {
     <nav className="bg-red ">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Brand/Logo */}
+          
           <div className="flex items-center text-xl font-bold text-red-600">
             
               EMCBank
             
           </div>
 
-          {/* Navigation Links */}
+       
           <div  >
             
             <ul className="hidden md:flex space-x-8 text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" >
