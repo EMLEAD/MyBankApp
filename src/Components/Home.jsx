@@ -17,7 +17,7 @@ const Home = () => {
               <form className="space-y-6" >
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    FullName/ Account Number
+                    FullName
                   </label>
                   <div className="mt-1">
                     <input
