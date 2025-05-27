@@ -1,14 +1,19 @@
-
-
+import React from 'react'
+import NavBar from './Components/NavBar'
 import './index.css' 
+import Home from './Components/Home'
+import Login from './Components/Login'
 
 function App() {
 
 
   return (
     <>
-   <div className="bg-blue-500 text-white p-4">
-   welcome bank app !!!
+   <div >
+    
+ <NavBar/>
+ <Home/>
+ <Login/>
     </div>
     </>
   )
