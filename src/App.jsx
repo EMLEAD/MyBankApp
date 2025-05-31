@@ -1,8 +1,10 @@
 import React from 'react'
 import NavBar from './Components/NavBar'
 import './index.css' 
-import Home from './Components/Home'
+import SignUp from './Components/SignUp'
 import Login from './Components/Login'
+import HomePage from './Components/HomePage'
+import { BrowserRouter, Routes,Route } from 'react-router-dom'
 
 function App() {
 
@@ -10,10 +12,15 @@ function App() {
   return (
     <>
    <div >
-    
- <NavBar/>
- <Home/>
- <Login/>
+    <BrowserRouter>
+    <NavBar/>
+    <Routes>
+    <Route element={<HomePage/>} path='/'/>
+    <Route element={<SignUp/>} path='/SignUp'/>
+    <Route element={<Login/>} path='/Login'/>
+ 
+ </Routes>
+ </BrowserRouter>
     </div>
     </>
   )
