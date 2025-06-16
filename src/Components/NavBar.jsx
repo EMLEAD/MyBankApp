@@ -1,27 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const NavBar = () => {
   return (
     <nav className="bg-red ">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl ml-16 px-4">
         <div className="flex justify-between items-center h-16">
           
-          <div className="flex items-center text-xl font-bold text-red-600">
+          <div className=" flex items-center text-xl font-bold text-red-600">
             
               EMCBank
             
           </div>
 
        
-          <div  >
+          <div className='w-200 flex items-center  ' >
             
-            <ul className="hidden md:flex space-x-8 text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" >
-                <li> HOME</li>
-                <li>  ABOUT US</li>
-                <li> CONTACT US</li>
-
+            <ul className="hidden md:flex space-x-10 text-gray-700 {({ isActive }) =>
+    isActive ? text-[rgb(245, 128, 89)] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" >
+            <li> <NavLink to="/">HOME</NavLink></li>
+            <li> <NavLink to="/About">ABOUT US</NavLink></li>
+            <li> <NavLink to="/Contact">CONTACT US</NavLink></li>
+                
             </ul> 
            
           </div>

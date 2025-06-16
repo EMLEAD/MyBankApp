@@ -12,6 +12,7 @@ const Home = () => {
     confirmPassword: '',
     phoneNumber: '',
   });
+const SignUp = () => {
     
   return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -26,7 +27,7 @@ const Home = () => {
               <form className="space-y-6" >
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    FullName/ Account Number
+                    FullName
                   </label>
                   <div className="mt-1">
                     <input
@@ -115,4 +116,4 @@ const Home = () => {
     
   
 
-export default Home
+export default SignUp
