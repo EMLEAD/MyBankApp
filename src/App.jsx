@@ -4,6 +4,7 @@ import './index.css'
 import SignUp from './Components/SignUp'
 import Login from './Components/Login'
 import HomePage from './Components/HomePage'
+import ForgotPassword from './Components/ForgotPassword'
 import { BrowserRouter, Routes,Route } from 'react-router-dom'
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
     <Route element={<HomePage/>} path='/'/>
     <Route element={<SignUp/>} path='/SignUp'/>
     <Route element={<Login/>} path='/Login'/>
- 
+    <Route element={<ForgotPassword/>} path='/ForgotPassword'/>
+
  </Routes>
  </BrowserRouter>
     </div>
