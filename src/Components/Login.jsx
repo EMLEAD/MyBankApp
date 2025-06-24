@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OTPModal from '../services/OTPModal';
+import OTPModal from './OTPModal';
 import { sendOTP, verifyOTP } from '../services/api';
 
 const Login = () => {

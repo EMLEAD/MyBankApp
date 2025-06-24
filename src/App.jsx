@@ -6,6 +6,7 @@ import Login from './Components/Login'
 import HomePage from './Components/HomePage'
 import ForgotPassword from './Components/ForgotPassword'
 import { BrowserRouter, Routes,Route } from 'react-router-dom'
+import OTPModal from './Components/OTPModal'
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     <Route element={<SignUp/>} path='/SignUp'/>
     <Route element={<Login/>} path='/Login'/>
     <Route element={<ForgotPassword/>} path='/ForgotPassword'/>
-
+  
 
  </Routes>
  </BrowserRouter>
