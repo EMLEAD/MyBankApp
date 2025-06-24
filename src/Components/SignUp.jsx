@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../store/authSlice';
 
-const Home = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
     name: '',
@@ -12,9 +12,8 @@ const Home = () => {
     confirmPassword: '',
     phoneNumber: '',
   });
-const SignUp = () => {
-    
-  return (
+
+    return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -40,10 +39,25 @@ const SignUp = () => {
                     />
                   </div>
                 </div>
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    PhoneNumber
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="number"
+                      name="number"
+                      type="number"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                     
+                    />
+                  </div>
+                </div>
     
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Registered Email address
+                    Email address
                   </label>
                   <div className="mt-1">
                     <input
@@ -112,7 +126,9 @@ const SignUp = () => {
           </div>
         </div>
       );
-    };
+    }
+  ;
+  
     
   
 
