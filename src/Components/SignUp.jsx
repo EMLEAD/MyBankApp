@@ -1,18 +1,83 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../store/authSlice';
+import { BsGenderAmbiguous } from 'react-icons/bs';
+import toast, { Toaster } from 'react-hot-toast';
+import Loader from '../utils/Loader';
 
-const Home = () => {
-  const dispatch = useDispatch();
-  const [formData, setFormData] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phoneNumber: '',
-  });
 const SignUp = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isSubmitting, setSubmitting] =useState(false);
+
+
+  const [formData, setFormData] = useState({
+    firstName :"",
+      lastName: "",
+      middleName:"",
+      gender:"",
+      email:"",
+      phoneNumber:"",
+      password:"",
+      confirmPassword: "",
+
+  })
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };  
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitting(true);
+
+  // Validate required fields
+  const requiredFields = [
+    { key: "firstName", label: "First Name" },
+    { key: "email", label: "Email" },
+    { key: "password", label: "Password" },
+    { key: "confirmPassword", label: "Confirm Password" }
+  ];
+
+  for (let field of requiredFields) {
+    if (!formData[field.key] || formData[field.key].trim() === "") {
+      toast.error(`${field.label} is required.`);
+      setSubmitting(false);
+      return;
+    }
+  }
+
+  if (formData.password.length < 6) {
+    toast.error("Password must be at least 6 characters long.");
+    setSubmitting(false);
+    return;
+  }
+
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Passwords do not match.");
+    setSubmitting(false);
+    return;
+  }
+
+  try {
+    const response = await dispatch(register(formData));
+    if (response.payload && response.payload.success) {
+      navigate('/');
+    } else {
+      toast.error(response.payload?.message || "Registration failed.");
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    toast.error("Registration failed. Please try again.");
+  } finally {
+    setSubmitting(false);
+  }
+};
     
   return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -24,16 +89,18 @@ const SignUp = () => {
     
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-              <form className="space-y-6" >
+              <form className="space-y-6" onSubmit={handleSubmit} >
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    FullName
+                    firstName
                   </label>
                   <div className="mt-1">
                     <input
                       id="name"
-                      name="name"
+                      name="firstName"
                       type="text"
+                      value={formData.firstName}
+                      onChange={handleChange}
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
                      
@@ -50,6 +117,8 @@ const SignUp = () => {
                       id="email"
                       name="email"
                       type="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
                      
@@ -66,7 +135,9 @@ const SignUp = () => {
                       id="password"
                       name="password"
                       type="password"
-                      required
+                      value={formData.password}
+                      onChange={handleChange}
+                    
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
                       
                     />
@@ -82,6 +153,7 @@ const SignUp = () => {
                       id="confirmPassword"
                       name="confirmPassword"
                       type="password"
+                      onChange={handleChange}
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
                      
@@ -110,6 +182,13 @@ const SignUp = () => {
               </div>
             </div>
           </div>
+          {
+            isSubmitting && (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+                <Loader />
+              </div>
+            )
+          }
         </div>
       );
     };
