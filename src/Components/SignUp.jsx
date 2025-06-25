@@ -6,7 +6,6 @@ import { BsGenderAmbiguous } from 'react-icons/bs';
 import toast, { Toaster } from 'react-hot-toast';
 import Loader from '../utils/Loader';
 
-const SignUp = () => {
 
 const SignUp = () => {
   const dispatch = useDispatch();
