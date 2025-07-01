@@ -15,6 +15,14 @@ export const register = async (userData) => {
   }
 }
 
-
-
-
+export const login = async (email, password) => {
+  try {
+    const response = await axios.get(`${baseURL}/api/auth/login`, { email, password });
+    console.log('Login successful:', response.data);
+    // Optionally, you can store the token in localStorage or handle it as needed
+    return response.data;
+  } catch (error) {
+    console.error('Login cannot be completed:', error);
+    throw error.response ? error.response.data : error.message;
+  }
+};

@@ -70,7 +70,7 @@ const HomePage = () => {
       <div className="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center justify-between">
         <div className="text-white max-w-xl">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            We Power Your Ambitions, One Loan At a Time.
+            We Power Your Ambitions, Banking At A Go.
           </h1>
           <p className="text-lg mb-6">
             From dream to dynasty, we're your launchpad. Our tailored loans and investments fuel your journey, every step of the way brick by entrepreneurial brick.
