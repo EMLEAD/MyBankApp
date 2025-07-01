@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <nav className="bg-red ">
-      <div className="max-w-6xl ml-16 px-4">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-red w-screen">
+      
+        <div className="flex justify-between items-center h-16 pr-10 ">
           
           <div className=" flex items-center text-xl font-bold text-red-600">
             
@@ -26,11 +26,10 @@ const NavBar = () => {
             </ul> 
            
           </div>
-
           <button    className="w-2rem flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"><NavLink to="/Login">Login</NavLink></button>
-
-        </div>
-      </div>
+       </div>
+       
+   
     </nav>
   );
 };
