@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OTPModal from './OTPModal';
-import { sendOTP, verifyOTP } from '../services/api';
+
+// import your API functions if you have them
+// import { sendOTP, verifyOTP } from '../services/authService';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,121 +12,97 @@ const Login = () => {
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [otpError, setOtpError] = useState('');
   const navigate = useNavigate();
+
+  // Simulate login and OTP API calls for demonstration
+  const fakeLogin = async (email, password) => {
+    // Replace this with your real login API call
+    if (email && password) return Promise.resolve();
+    return Promise.reject(new Error('Invalid credentials'));
+  };
+  const fakeVerifyOTP = async (email, otp) => {
+    // Replace this with your real OTP verification API call
+    if (otp === '1234') return Promise.resolve();
+    return Promise.reject(new Error('Invalid OTP'));
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+    setOtpError('');
     try {
-      // First verify credentials (implement your login API call)
-      // Then send OTP
-      await sendOTP(email);
+      // await sendOTP(email); // If using real API
+      await fakeLogin(email, password);
       setShowOTPModal(true);
-    } catch (error) {
-      setError(error.message || 'Failed to send OTP');
+    } catch (err) {
+      setError(err.message || 'Login failed');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleOTPVerify = async (otpCode) => {
+  const handleOTPVerify = async (otp) => {
     setLoading(true);
-    setError('');
-    
+    setOtpError('');
     try {
-      const response = await verifyOTP(email, otpCode);
-      if (response.success) {
-        // Store authentication token if provided
-        if (response.token) {
-          localStorage.setItem('authToken', response.token);
-        }
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      setError(error.message || 'OTP verification failed');
+      // await verifyOTP(email, otp); // If using real API
+      await fakeVerifyOTP(email, otp);
+      setShowOTPModal(false);
+      navigate('/'); // or wherever you want to redirect
+    } catch (err) {
+      setOtpError(err.message || 'OTP verification failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-           Login Into Your Account
-          </h2>
+    <div className="h-[30rem] flex items-center justify-center bg-gray-50">
+      <form onSubmit={handleLogin} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-red-600">Login</h2>
+        {error && <div className="mb-4 text-red-600 text-center">{error}</div>}
+        <div className="mb-4">
+          <label className="block mb-1 text-gray-700">Email</label>
+          <input
+            type="email"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            autoComplete="username"
+          />
         </div>
-  
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" onSubmit={handleLogin}>
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Email/ Account Number
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
-
-                  />
-                </div>
-              </div>
-  
-              
-  
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500"
-                    
-                  />
-                </div>
-              </div>
-              
-             
-              <div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${
-                    loading ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {loading ? 'Processing...' : 'Log in'}
-                </button>
-              </div>
-            </form>
-  
-             
-          </div>
+        <div className="mb-6">
+          <label className="block mb-1 text-gray-700">Password</label>
+          <input
+            type="password"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+          />
         </div>
-      </div>
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition"
+          disabled={loading}
+        >
+          {loading ? 'Processing...' : 'Login'}
+        </button>
+      </form>
 
+      {/* OTP Modal */}
       <OTPModal
         isOpen={showOTPModal}
         onClose={() => setShowOTPModal(false)}
         onVerify={handleOTPVerify}
         loading={loading}
+        error={otpError}
       />
-    </>
+    </div>
   );
 };
 

@@ -75,4 +75,21 @@ const authSlice = createSlice({
   },
 });
 
+//login action
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await authService.login(email, password);
+      localStorage.setItem("token", response.token);
+      return response.data;
+    } catch (error) {
+      console.error("Login cannot be completed:", error);
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
 export default authSlice.reducer;

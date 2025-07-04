@@ -6,11 +6,11 @@ import SideBar from './SideBar';
 
 const HomePage = () => {
   return (
-    <div className='flex w-full '>
+    <div className="flex w-screen">
    
 <SideBar />
 
-    <div className="p-6 bg-white min-h-screen">
+    <div className="p-6 bg-white w-screen mr-40">
       {/*HomePage Search Area */}
       <div className="flex justify-end items-center mb-6">
         
@@ -63,13 +63,45 @@ const HomePage = () => {
           </NavLink>
         </div>
       </div>
-      <div className='w-[40rem] h-[20rem]  border rounded-xl shadow-sm mt-8'>
-      
+
+<div className='w-[70rem] h-[29rem] flex  border rounded-r-[1rem] rounded-l-[1rem]  shadow-sm mt-8 bg-red-600 bg-gradient-to-r'>
+      <div className='w-[40rem] h-[29rem] flex  rounded-l-[1rem] shadow-sm  bg-red-600 bg-gradient-to-r'>
+
+      <div className="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center justify-between">
+        <div className="text-white max-w-xl">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            We Power Your Ambitions, Banking At A Go.
+          </h1>
+          <p className="text-lg mb-6">
+            From dream to dynasty, we're your launchpad. Our tailored loans and investments fuel your journey, every step of the way brick by entrepreneurial brick.
+          </p>
+          <button className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-md hover:bg-purple-100 transition-all">
+           <NavLink to="/About"> Learn More →</NavLink>
+          </button>
+        </div>
+
+        
+      </div>
+
+     
+          
+        </div>
+
+          
+          
+          <img
+            src="src\assets\bank1.jpg"
+            alt="image"
+            className="h-[29rem] w-[30rem] rounded-r-[1rem] shadow-lg object-cover"
+          />
+         
+    </div>
+  
         
         
       </div>
     </div>
-    </div>
+ 
     
   );
 };
