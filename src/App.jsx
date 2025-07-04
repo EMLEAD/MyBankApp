@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import Footer from './Components/Footer'
 import About from './Components/About'
 import Contact from './Components/Contact'
+import EasyLoan from './Components/EasyLoan'
 
 
 
@@ -29,6 +30,8 @@ function App() {
     <Route element={<About/>} path='/About'/>
     <Route element={<Contact/>} path='/Contact'/>
     <Route element={<ForgotPassword/>} path='/ForgotPassword'/>
+    <Route element={<EasyLoan/>} path='/easy-loan'/>
+
  </Routes>
  <Footer/>
  </BrowserRouter>
