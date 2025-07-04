@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
-import * as authService from "../services/authService";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -28,6 +27,29 @@ export const register = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error during registration:", error);
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
+
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }, { rejectWithValue }) => {
+    console.log("Login attempt with email:", email);
+    console.log("Login attempt with password:", password);
+    try {
+    const response = await axios.post(`${baseURL}/api/auth/login`, {
+        email,
+        password,
+      });
+      console.log("Login response:", response);
+      localStorage.setItem("token", response.token);
+      return response.data;
+    } catch (error) {
+      console.error("Login cannot be completed:", error);
       return rejectWithValue(
         error.response ? error.response.data : error.message
       );
@@ -71,25 +93,23 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload || "Registration failed";
         state.success = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+         state.success = false;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+        state.success = true;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Login failed";
+        state.success = false;
       });
   },
 });
-
-//login action
-export const login = createAsyncThunk(
-  "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
-    try {
-      const response = await authService.login(email, password);
-      localStorage.setItem("token", response.token);
-      return response.data;
-    } catch (error) {
-      console.error("Login cannot be completed:", error);
-      return rejectWithValue(
-        error.response ? error.response.data : error.message
-      );
-    }
-  }
-);
 
 export default authSlice.reducer;
