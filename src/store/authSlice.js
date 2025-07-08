@@ -3,7 +3,7 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "/api/auth/register",
   async (userData, { rejectWithValue }) => {
     try {
       const {
