@@ -11,6 +11,7 @@ import Footer from './Components/Footer'
 import About from './Components/About'
 import Contact from './Components/Contact'
 import EasyLoan from './Components/EasyLoan'
+import SendMoney from './Components/SendMoney'
 
 
 
@@ -31,6 +32,7 @@ function App() {
     <Route element={<Contact/>} path='/Contact'/>
     <Route element={<ForgotPassword/>} path='/ForgotPassword'/>
     <Route element={<EasyLoan/>} path='/easy-loan'/>
+    <Route element={<SendMoney/>} path='/send-money'/>
 
  </Routes>
  <Footer/>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
+
 import { FaChartPie, FaCommentDots, FaCalendarAlt, FaThLarge, FaCogs, FaQuestionCircle, FaSignOutAlt, FaDatabase } from 'react-icons/fa';
 
 
@@ -34,7 +36,9 @@ const SideBar = () => {
 
       <nav className="flex-1 px-4 space-y-4">
         <MenuItem icon={<FaThLarge />} label="Profile" />
-        <MenuItem icon={<FaChartPie />} label="Transfer" />
+        <NavLink to="/send-money">
+          <MenuItem icon={<FaChartPie />} label="Transfer" />
+        </NavLink>
         <MenuItem icon={<FaCommentDots />} label="Aitime/Data Subscription" />
         <MenuItem icon={<FaCalendarAlt />} label="Transaction History" />
         <MenuItem icon={<FaDatabase />} label="Book Flights"  />

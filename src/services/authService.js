@@ -27,6 +27,19 @@ export const login = async (email, password) => {
   }
 };
 
+
+// Function to send form data to backend
+  export const sendMoney = async (data) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/transfer`, data);
+      return response.data;
+    } catch (err) {
+      throw err.response?.data?.message || 'Transfer failed. Please try again.';
+    }
+  };
+
+
+  
 // export const forgotPassword = async (email) => {
 //   try {
 //     const response = await axios.post(`${baseURL}/api/auth/forgotPassword`, { email });

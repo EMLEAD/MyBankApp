@@ -112,4 +112,18 @@ const authSlice = createSlice({
   },
 });
 
+export const sendMoney = createAsyncThunk(
+  "auth/sendMoney",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/transfer`, data);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message || "Transfer failed. Please try again."
+      );
+    }
+  }
+);
+
 export default authSlice.reducer;
