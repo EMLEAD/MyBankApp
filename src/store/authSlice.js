@@ -41,12 +41,12 @@ export const login = createAsyncThunk(
     console.log("Login attempt with email:", email);
     console.log("Login attempt with password:", password);
     try {
-    const response = await axios.post(`${baseURL}/api/auth/login`, {
+      const response = await axios.post(`${baseURL}/api/auth/login`, {
         email,
         password,
       });
       console.log("Login response:", response);
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
       console.error("Login cannot be completed:", error);
@@ -57,9 +57,32 @@ export const login = createAsyncThunk(
   }
 );
 
+export const getUserProfile = createAsyncThunk(
+  "auth/getUserProfile",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().auth.token;
+      const response = await axios.get(`${baseURL}/api/auth/getUser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data.data; // Return the user data
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
+// Get token from localStorage if it exists
+const tokenFromStorage = localStorage.getItem("token");
+
 const initialState = {
   user: null,
-  token: localStorage.getItem("token") || null,
+  token: tokenFromStorage,
   isLoading: false,
   error: null,
   success: false,
@@ -102,12 +125,26 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+        state.token = action.payload.token; // Make sure to set the token in the Redux store
         state.success = true;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Login failed";
         state.success = false;
+      })
+      .addCase(getUserProfile.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(getUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to fetch user profile";
       });
   },
 });
