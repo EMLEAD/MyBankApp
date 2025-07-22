@@ -13,7 +13,7 @@ export const register = createAsyncThunk(
         firstName,
         lastName,
         middleName,
-    
+        gender, 
       } = userData;
       const response = await axios.post(`${baseURL}/api/auth/register`, {
         email,
@@ -22,6 +22,7 @@ export const register = createAsyncThunk(
         firstName,
         lastName,
         middleName,
+        gender, 
       });
       localStorage.setItem("token", response.data.token);
       return response.data;
@@ -34,24 +35,20 @@ export const register = createAsyncThunk(
   }
 );
 
-
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
-    console.log("Login attempt with email:", email);
-    console.log("Login attempt with password:", password);
     try {
       const response = await axios.post(`${baseURL}/api/auth/login`, {
         email,
         password,
       });
-      console.log("Login response:", response);
+      // Save token to localStorage
       localStorage.setItem("token", response.data.token);
-      return response.data;
+      return response.data; // Should include user and token
     } catch (error) {
-      console.error("Login cannot be completed:", error);
       return rejectWithValue(
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data.message : error.message
       );
     }
   }
@@ -120,7 +117,7 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-         state.success = false;
+        state.success = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -149,18 +146,18 @@ const authSlice = createSlice({
   },
 });
 
-export const sendMoney = createAsyncThunk(
-  "auth/sendMoney",
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`${baseURL}/api/transfer`, data);
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(
-        err.response?.data?.message || "Transfer failed. Please try again."
-      );
-    }
-  }
-);
+// export const sendMoney = createAsyncThunk(
+//   "auth/sendMoney",
+//   async (data, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.post(`${baseURL}/api/transfer`, data);
+//       return response.data;
+//     } catch (err) {
+//       return rejectWithValue(
+//         err.response?.data?.message || "Transfer failed. Please try again."
+//       );
+//     }
+//   }
+// );
 
 export default authSlice.reducer;

@@ -39,7 +39,7 @@ export const login = async (email, password) => {
   };
 
 
-  
+
 // export const forgotPassword = async (email) => {
 //   try {
 //     const response = await axios.post(`${baseURL}/api/auth/forgotPassword`, { email });
@@ -51,17 +51,17 @@ export const login = async (email, password) => {
 //   }
 // };  
 
-// export const getUser = async (token) => {
-//   try {
-//     const response = await axios.get(`${baseURL}/api/auth/getUser`, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     console.log('User fetched successfully:', response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching user:', error);
-//     throw error.response ? error.response.data : error.message;
-//   }
-// };
+export const getUser = async (token) => {
+  try {
+    const response = await axios.get(`${baseURL}/api/auth/getUser`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('User fetched successfully:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error.response ? error.response.data : error.message;
+  }
+};
