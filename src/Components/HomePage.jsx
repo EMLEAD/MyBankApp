@@ -64,7 +64,7 @@ const HomePage = () => {
     : recentTransactions.filter(tx => tx.type === activeTab);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50"> 
       <div className="p-4 md:p-6">
         {/* Header */}
         <header className="flex justify-between items-center mb-6">
@@ -374,7 +374,7 @@ const HomePage = () => {
       </div>
 
       {/* Promo Banner */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-6 text-white mb-6">
+      <div className="bg-gradient-to-r from-red-600 to-red-500 rounded-2xl p-6 text-white mb-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="max-w-md">
             <h3 className="text-xl font-bold mb-2">Get 5% Cashback</h3>
@@ -382,7 +382,7 @@ const HomePage = () => {
               Apply for our premium credit card and enjoy 5% cashback on all your purchases for the first 3 months.
             </p>
           </div>
-          <button className="bg-white text-blue-600 font-semibold px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
+          <button className="bg-white text-black font-semibold px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
             Apply Now
           </button>
         </div>

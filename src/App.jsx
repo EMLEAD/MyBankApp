@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserProfile } from './store/authSlice';
-import NavBar from './Components/NavBar';
-import SideBar from './Components/SideBar';
-import ProtectedRoute from './Components/ProtectedRoute';
-import './index.css';
-import SignUp from './Components/SignUp';
-import Login from './Components/Login';
-import HomePage from './Components/HomePage';
-import ForgotPassword from './Components/ForgotPassword';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import Footer from './Components/Footer';
-import About from './Components/About';
-import Contact from './Components/Contact';
-import EasyLoan from './Components/EasyLoan';
+import React from 'react'
+import NavBar from './Components/NavBar'
+import './index.css' 
+import SignUp from './Components/SignUp'
+import Login from './Components/Login'
+import HomePage from './Components/HomePage'
+import ForgotPassword from './Components/ForgotPassword'
+import { BrowserRouter, Routes,Route } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+import Footer from './Components/Footer'
+import About from './Components/About'
+import Contact from './Components/Contact'
+import EasyLoan from './Components/EasyLoan'
+import SendMoney from './Components/SendMoney'
 
 
 
@@ -82,10 +79,23 @@ const AppContent = () => {
 function App() {
   return (
     <>
-      <Toaster />
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+   <div >
+    <Toaster />
+    <BrowserRouter>
+    <NavBar/>
+  <Routes>
+    <Route element={<HomePage/>} path='/'/>
+    <Route element={<SignUp/>} path='/SignUp'/>
+    <Route element={<Login/>} path='/Login'/>
+    <Route element={<About/>} path='/About'/>
+    <Route element={<Contact/>} path='/Contact'/>
+    <Route element={<ForgotPassword/>} path='/ForgotPassword'/>
+    <Route element={<EasyLoan/>} path='/easy-loan'/>
+
+ </Routes>
+ <Footer/>
+ </BrowserRouter>
+    </div>
     </>
   )
 }
