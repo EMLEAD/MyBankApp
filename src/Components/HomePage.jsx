@@ -15,15 +15,31 @@ const HomePage = () => {
   const [activeTab, setActiveTab] = useState('all');
   
   useEffect(() => {
-    // Fetch user profile when component mounts
-    dispatch(getUserProfile());
+    console.log('useEffect running');
+    
+    if (!user) {
+      console.log('Fetching user profile...');
+      const fetchProfile = async () => {
+        try {
+          const result = await dispatch(getUserProfile());
+          console.log('Profile fetch result:', result);
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
+      };
+      
+      fetchProfile();
+    }
     
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000);
+    }, 60000);
     
-    return () => clearInterval(timer);
-  }, [dispatch]);
+    return () => {
+      console.log('Cleaning up...');
+      clearInterval(timer);
+    };
+  }, [dispatch, user]);
   
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
