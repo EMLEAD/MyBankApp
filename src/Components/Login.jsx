@@ -1,56 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import OTPModal from "./OTPModal";
 import { login } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 
-// import your API functions if you have them
-// import { sendOTP, verifyOTP } from '../services/authService';
-
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [showOTPModal, setShowOTPModal] = useState(false);
-  const { isLoading, error } = useSelector((state) => state.auth);
-
-  // const [loading, setLoading] = useState(false);
-
-  // const [otpError, setOtpError] = useState('');
-  // const navigate = useNavigate();
-
-  // const fakeVerifyOTP = async (email, otp) => {
-
-  //   if (otp === '1234') return Promise.resolve();
-  //   return Promise.reject(new Error('Invalid OTP'));
-  // };
+  const { isLoading, error, success } = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await dispatch(login({ email, password })).unwrap();
-
-      // setShowOTPModal(true);
+      // Navigation will be handled in useEffect
     } catch (err) {
-      console.log(err);
+      // Error handled by Redux
     }
   };
 
-  // const handleOTPVerify = async (otp) => {
-  //   setLoading(true);
-  //   setOtpError('');
-  //   try {
-  //     // await verifyOTP(email, otp); // If using real API
-  //     await fakeVerifyOTP(email, otp);
-  //     setShowOTPModal(false);
-  //     navigate('/'); // or wherever you want to redirect
-  //   } catch (err) {
-  //     setOtpError(err.message || 'OTP verification failed');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  // Redirect on successful login
+  useEffect(() => {
+    if (success) {
+      navigate("/");
+    }
+  }, [success, navigate]);
 
   return (
     <div className="h-[30rem] flex items-center justify-center bg-gray-50">
@@ -92,25 +68,9 @@ const Login = () => {
           {isLoading ? "Processing..." : "Login"}
         </button>
       </form>
-
-{
-  isLoading && (
-    <Loader/>
-  )
-}
-      {/* OTP Modal */}
-
-      {/* <OTPModal
-        isOpen={showOTPModal}
-        onClose={() => setShowOTPModal(false)}
-        onVerify={handleOTPVerify}
-        loading={loading}
-        error={otpError}
-      /> */}
+      {isLoading && <Loader />}
     </div>
   );
 };
-
-
 
 export default Login;

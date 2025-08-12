@@ -1,18 +1,7 @@
-import React from 'react';
-import { 
-  FaChartPie, 
-  FaCommentDots, 
-  FaCalendarAlt, 
-  FaThLarge, 
-  FaCogs, 
-  FaQuestionCircle, 
-  FaSignOutAlt, 
-  FaDatabase,
-  FaHome,
-  FaExchangeAlt,
-  FaMoneyBillWave
-} from 'react-icons/fa';
-import { NavLink, useLocation } from 'react-router-dom';
+import React from 'react'
+import { NavLink } from 'react-router-dom';
+
+import { FaChartPie, FaCommentDots, FaCalendarAlt, FaThLarge, FaCogs, FaQuestionCircle, FaSignOutAlt, FaDatabase } from 'react-icons/fa';
 
 
 const SideBar = () => {
@@ -49,13 +38,12 @@ const SideBar = () => {
         </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
-        <MenuItem icon={<FaHome />} label="Dashboard" to="/" />
-        <MenuItem icon={<FaExchangeAlt />} label="Transfers" to="/transfers" />
-        <MenuItem icon={<FaMoneyBillWave />} label="Payments" to="/payments" />
-        <MenuItem icon={<FaChartPie />} label="Analytics" to="/analytics" />
-        <MenuItem icon={<FaCalendarAlt />} label="Transactions" to="/transactions" />
-        <MenuItem icon={<FaDatabase />} label="Cards" to="/cards" />
+      <nav className="flex-1 px-4 space-y-4">
+        <MenuItem icon={<FaThLarge />} label="Profile" />
+        <MenuItem icon={<FaChartPie />} label="Transfer" />
+        <MenuItem icon={<FaCommentDots />} label="Aitime/Data Subscription" />
+        <MenuItem icon={<FaCalendarAlt />} label="Transaction History" />
+        <MenuItem icon={<FaDatabase />} label="Book Flights"  />
       </nav>
 
       <div className="p-4 border-t border-white/10 space-y-1">
