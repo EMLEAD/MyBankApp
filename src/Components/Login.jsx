@@ -12,13 +12,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   // const [showOTPModal, setShowOTPModal] = useState(false);
-  const { isLoading, error } = useSelector((state) => state.auth);
-
-
   const { isLoading, error, success } = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault();s
     try {
       await dispatch(login({ email, password })).unwrap();
       // Navigation will be handled in useEffect
