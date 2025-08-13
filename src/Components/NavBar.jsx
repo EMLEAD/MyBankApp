@@ -15,7 +15,7 @@ const NavBar = () => {
           </div>
 
        
-          <div className='w-200 flex items-center  ' >
+          <div className='w-00 flex items-center  ' >
             
             <ul className="hidden md:flex space-x-10 text-gray-700 {({ isActive }) =>
     isActive ? text-[rgb(245, 128, 89)] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" >
